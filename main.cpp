@@ -1,29 +1,6 @@
 #include "glshift/GLShift.h"
-#include <vector>
 
 #define numVAOs 1
-
-GLuint createShaderProgram() {
-    const char* vShaderSource =
-            "#version 430 \n"
-            "void main(void) \n"
-            "{ gl_Position = vec4(0.0, 0.0, 0.0, 1.0); }";
-    const char* fShaderSource =
-            "#version 430 \n"
-            "out vec4 color; \n"
-            "void main(void) \n"
-            "{ color = vec4(0.0, 1.0, 1.0, 1.0); }";
-
-    GLuint vShader = glCreateShader(GL_VERTEX_SHADER);
-    GLuint fShader = glCreateShader(GL_FRAGMENT_SHADER);
-    glShaderSource(vShader, 1, &vShaderSource, NULL); glCompileShader(vShader);
-    glShaderSource(fShader, 1, &fShaderSource, NULL); glCompileShader(fShader);
-
-    GLuint vfProgram = glCreateProgram();
-    glAttachShader(vfProgram, vShader); glAttachShader(vfProgram, fShader);
-    glLinkProgram(vfProgram);
-    return vfProgram;
-}
 
 /**
  * Example for a renderer implementation
@@ -34,23 +11,41 @@ public:
         glClearColor(1.0, 0.0, 0.0, 1.0);
         glClear(GL_COLOR_BUFFER_BIT);
 
-        glUseProgram(this->renderingProgram);
+        // Rather use this function instead of glUseProgram
+        // Since it checks for availability of the program
+        this->useProgram("main");
         glDrawArrays(GL_POINTS, 0, 1);
     }
 
     void init() override {
-        this->renderingProgram = createShaderProgram();
+        // Example for fixed shader
+        const char* vShaderSource =
+                "#version 430 \n"
+                "void main(void) \n"
+                "{ gl_Position = vec4(0.0, 0.0, 0.0, 1.0); }";
+        const char* fShaderSource =
+                "#version 430 \n"
+                "out vec4 color; \n"
+                "void main(void) \n"
+                "{ color = vec4(0.0, 1.0, 1.0, 1.0); }";
+
+        // Example for creating and linking a shader pipeline
+        this->createProgram("main");
+        this->addShader("main", vShaderSource, GL_VERTEX_SHADER);
+        this->addShader("main", fShaderSource, GL_FRAGMENT_SHADER);
+        this->linkProgram("main");
+
+        // Just a point
         glGenVertexArrays(numVAOs, this->vao);
         glBindVertexArray(vao[0]);
     }
 
 private:
-    GLuint renderingProgram;
     GLuint vao[numVAOs];
 };
 
 int main() {
-    /**
+    /*
      * Example for a GLManager implementation
      */
     GLShift::GLManager glManager = GLShift::GLManager(4, 3);

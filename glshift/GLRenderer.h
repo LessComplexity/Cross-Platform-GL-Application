@@ -6,6 +6,7 @@
 #define YOURAPPNAME_GLRENDERER_H
 
 #include "definitions.h"
+#include <unordered_map>
 
 class GLShift::GLRenderer {
 public:
@@ -17,8 +18,39 @@ public:
      * Override to provide code for the initialization loop
      */
     virtual void init() = 0;
+    /**
+     * Set the window that the render applies to
+     * @param context
+     */
     void setWindow(GLFWwindow * context);
-private:
+    /**
+     * Create and store an empty program in the renderer
+     * @param name Name to reference to the program
+     */
+    void createProgram(const std::string& name);
+    /**
+     * Link the shaders given to the programs to make it complete
+     * @param name Name of program to link
+     */
+    void linkProgram(const std::string& name);
+    /**
+     * Add a shader to a program
+     * @param programName Program name to add to
+     * @param shaderSource Source code of the shader
+     * @param shader_type Shader type
+     */
+    void addShader(const std::string& programName, const char* shaderSource, GLint shader_type = GL_VERTEX_SHADER);
+    /**
+     * A safe function to call programs.
+     * Newbies might use the command line `glUseProgram(this->glPrograms["name"])`.
+     * The main problem is that if the program with the key "name" doesn't exists,
+     * then it will be created, thus you will get en error. This functions checks
+     * if the key exists before proceeding to use the program to avoid errors
+     * @param name Name of the program to load
+     */
+    void useProgram(const std::string& name);
+protected:
+    std::unordered_map<std::string, GLuint> glPrograms;
     GLFWwindow * window;
 };
 
