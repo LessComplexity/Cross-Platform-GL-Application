@@ -9,7 +9,13 @@
 #include <GLFW/glfw3.h>
 
 namespace GLShift {
+    /**
+     * Helps manage a window with GLFW context
+     */
     class GLManager;
+    /**
+     * Defines the functionality for rendering the screen
+     */
     class GLRenderer;
 }
 

@@ -18,8 +18,11 @@ add_executable(${APP_NAME} main.cpp
         glshift/GLManager.h
         glshift/GLShift.h
         glshift/definitions.h
-        glshift/GLRenderer.h glshift/GLRenderer.cpp)
+        glshift/GLRenderer.h
+        glshift/GLRenderer.cpp)
 
+# Linking libraries for windows/linux
+# TODO: add mac support
 if(WIN32)
     # Neccessary variables
     SET(LINK_GL_LIBS ${CMAKE_SOURCE_DIR}/lib/win/${ARCHITECTURE_TO_USE})

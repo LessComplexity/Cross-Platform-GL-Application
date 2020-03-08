@@ -3,7 +3,3 @@
 //
 
 #include "GLRenderer.h"
-
-GLShift::GLRenderer::GLRenderer(GLShift::GLManager *context) {
-    this->context = context;
-}

@@ -40,6 +40,7 @@ void GLShift::GLManager::openWindow(int width, int height, const char* title,boo
 
 void GLShift::GLManager::setRenderer(GLShift::GLRenderer *renderer) {
     this->renderer = renderer;
+    // Call initialization function
     this->renderer->init();
 }
 

@@ -9,11 +9,14 @@
 
 class GLShift::GLRenderer {
 public:
-    explicit GLRenderer(GLManager* context);
+    /**
+     * Override to provide code for the rendering loop
+     */
     virtual void render() = 0;
+    /**
+     * Override to provide code for the initialization loop
+     */
     virtual void init() = 0;
-private:
-    GLManager * context;
 };
 
 #endif //YOURAPPNAME_GLRENDERER_H
