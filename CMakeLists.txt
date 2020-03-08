@@ -7,7 +7,7 @@ project(${APP_NAME} LANGUAGES CXX)
 set(CMAKE_CXX_STANDARD 17)
 
 # Set to x86 for x86 architecture or x64 for x64 architecture
-set(ARCHITECTURE_TO_USE x86)
+set(ARCHITECTURE_TO_USE x64)
 
 # Make the executable
 add_executable(${APP_NAME} main.cpp)
@@ -22,7 +22,7 @@ if(WIN32)
     file(COPY ${GLEW_SHARED_LIB} DESTINATION ${CMAKE_BINARY_DIR}/)
     find_package(OpenGL REQUIRED)
     # Link libs
-    target_link_libraries(${APP_NAME} ${OPENGL_LIBRARIES} ${GLEW_SHARED_LIB} ${GLFW_SHARED_LIB})
+    target_link_libraries(${APP_NAME} ${OPENGL_LIBRARIES} ${GLEW_STATIC_LIB} ${GLFW_STATIC_LIB})
 else()
     SET(LINK_GL_LIBS ${CMAKE_SOURCE_DIR}/lib/linux)
     set(GLFW_STATIC_LIB  ${LINK_GL_LIBS}/libglfw3.a)

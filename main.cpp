@@ -12,11 +12,6 @@ int main() {
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
     GLFWwindow* window = glfwCreateWindow(600, 300, "Test", NULL, NULL);
     glfwMakeContextCurrent(window);
-    if(window) {
-        std::cerr << "Failed to create window" << std::endl;
-        glfwTerminate();
-        exit(EXIT_FAILURE);
-    }
 
     if(GLenum err = glewInit(); err != GLEW_OK) {
         std::cout << glewGetErrorString(err) << std::endl;
