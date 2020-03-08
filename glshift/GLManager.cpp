@@ -13,7 +13,7 @@ GLShift::GLManager::GLManager() {
     }
 }
 
-GLShift::GLManager::GLManager(int major, int minor) {
+GLShift::GLManager::GLManager(unsigned int major, unsigned int minor) {
     if(!glfwInit()) {
         std::cerr << "Couldn't initialize glfw context" << std::endl;
         delete this;
@@ -21,13 +21,13 @@ GLShift::GLManager::GLManager(int major, int minor) {
     this->setVersion(major, minor);
 }
 
-void GLShift::GLManager::setVersion(int major, int minor) {
+void GLShift::GLManager::setVersion(unsigned int major, unsigned int minor) {
     this->major = major; this->minor = minor;
     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, major);
     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, minor);
 }
 
-void GLShift::GLManager::openWindow(int width, int height, const char* title,bool isFullScreen) {
+void GLShift::GLManager::openWindow(unsigned int width, unsigned int height, const char* title,bool isFullScreen) {
     this->window = glfwCreateWindow(width, height, title, isFullScreen ? glfwGetPrimaryMonitor() : NULL, NULL);
     glfwMakeContextCurrent(this->window);
     if(GLenum err = glewInit(); err != GLEW_OK) {
