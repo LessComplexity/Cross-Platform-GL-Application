@@ -17,6 +17,9 @@ public:
      * Override to provide code for the initialization loop
      */
     virtual void init() = 0;
+    void setWindow(GLFWwindow * context);
+private:
+    GLFWwindow * window;
 };
 
 #endif //YOURAPPNAME_GLRENDERER_H

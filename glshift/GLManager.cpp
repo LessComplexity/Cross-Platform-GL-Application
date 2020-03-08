@@ -40,6 +40,7 @@ void GLShift::GLManager::openWindow(int width, int height, const char* title,boo
 
 void GLShift::GLManager::setRenderer(GLShift::GLRenderer *renderer) {
     this->renderer = renderer;
+    this->renderer->setWindow(this->window);
     // Call initialization function
     this->renderer->init();
 }
@@ -57,7 +58,6 @@ void GLShift::GLManager::run() {
     while(!glfwWindowShouldClose(this->window)) {
         this->renderer->render();
 
-        glClear(GL_COLOR_BUFFER_BIT);
         glfwSwapBuffers(this->window);
         glfwPollEvents();
     }

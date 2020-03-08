@@ -3,3 +3,7 @@
 //
 
 #include "GLRenderer.h"
+
+void GLShift::GLRenderer::setWindow(GLFWwindow * context) {
+    this->window = context;
+}
