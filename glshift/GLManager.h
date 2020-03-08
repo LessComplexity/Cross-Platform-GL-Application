@@ -19,7 +19,7 @@ public:
      * @param major
      * @param minor
      */
-    GLManager(signed int major, signed int minor);
+    GLManager(unsigned int major, unsigned int minor);
     /**
      * Terminated the GLFW environment
      */
@@ -30,7 +30,7 @@ public:
      * @param major
      * @param minor
      */
-    void setVersion(signed int major, signed int minor);
+    void setVersion(unsigned int major, unsigned int minor);
     /**
      * Sets the renderer object to use for rendering on the window
      * @param renderer
@@ -43,12 +43,12 @@ public:
      * @param title
      * @param isFullScreen Set true to make full screen app
      */
-    void openWindow(signed int width, signed int height, const char* title, bool isFullScreen = false);
+    void openWindow(unsigned int width, unsigned int height, const char* title, bool isFullScreen = false);
     void run();
 private:
     GLFWwindow *window;
     GLRenderer *renderer;
-    signed int major, minor;
+    unsigned int major, minor;
 };
 
 
