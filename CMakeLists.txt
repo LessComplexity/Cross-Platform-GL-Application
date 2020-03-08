@@ -12,7 +12,13 @@ set(ARCHITECTURE_TO_USE x64)
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/include)
 
 # Make the executable
-add_executable(${APP_NAME} main.cpp)
+add_executable(${APP_NAME} main.cpp
+        # Helper namespace and object to make your life easier
+        glshift/GLManager.cpp
+        glshift/GLManager.h
+        glshift/GLShift.h
+        glshift/definitions.h
+        glshift/GLRenderer.h glshift/GLRenderer.cpp)
 
 if(WIN32)
     # Neccessary variables
