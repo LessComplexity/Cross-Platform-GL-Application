@@ -8,6 +8,8 @@ set(CMAKE_CXX_STANDARD 17)
 
 # Set to x86 for x86 architecture or x64 for x64 architecture
 set(ARCHITECTURE_TO_USE x64)
+# Add GLEW/GLFW/glm includes
+include_directories(${CMAKE_CURRENT_SOURCE_DIR}/include)
 
 # Make the executable
 add_executable(${APP_NAME} main.cpp)
