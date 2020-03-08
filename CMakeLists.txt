@@ -37,7 +37,7 @@ else()
     target_link_libraries(${APP_NAME}
             ${OPENGL_LIBRARIES}
             ${GLEW_SHARED_LIB}
-            ${GLEW_STATIC_LIB}
+            #${GLEW_STATIC_LIB}
             ${GLFW_STATIC_LIB}
             Threads::Threads
             ${X11_LIBRARIES}

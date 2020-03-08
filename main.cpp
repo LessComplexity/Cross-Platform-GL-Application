@@ -1,4 +1,3 @@
-#define GLEW_STATIC
 #include "GL/glew.h"
 #include "GLFW/glfw3.h"
 #include <iostream>
@@ -9,7 +8,7 @@ int main() {
     }
 
     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
-    glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
+    glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 5);
     GLFWwindow* window = glfwCreateWindow(600, 300, "Test", NULL, NULL);
     glfwMakeContextCurrent(window);
 
