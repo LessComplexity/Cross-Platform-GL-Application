@@ -15,7 +15,7 @@ add_executable(${APP_NAME} main.cpp)
 if(WIN32)
     # Neccessary variables
     SET(LINK_GL_LIBS ${CMAKE_SOURCE_DIR}/lib/win/${ARCHITECTURE_TO_USE})
-    set(GLEW_SHARED_LIB ${CMAKE_SOURCE_DIR}/bin/win/${ARCHITECTURE_TO_USE}/glew32.dll)
+    set(GLEW_SHARED_LIB ${LINK_GL_LIBS}/glew32.dll)
     set(GLEW_STATIC_LIB ${LINK_GL_LIBS}/glew32.lib)
     set(GLFW_STATIC_LIB  ${LINK_GL_LIBS}/glfw3.lib)
     # Copy the GLEW static lib
@@ -27,7 +27,7 @@ else()
     SET(LINK_GL_LIBS ${CMAKE_SOURCE_DIR}/lib/linux)
     set(GLFW_STATIC_LIB  ${LINK_GL_LIBS}/libglfw3.a)
     set(GLEW_STATIC_LIB  ${LINK_GL_LIBS}/libGLEW.a)
-    set(GLEW_SHARED_LIB  ${CMAKE_SOURCE_DIR}/bin/linux/libGLEW.so.2.1)
+    set(GLEW_SHARED_LIB  ${LINK_GL_LIBS}/libGLEW.so.2.1)
 
     # Link linux dependencies
     find_package(X11 REQUIRED)
