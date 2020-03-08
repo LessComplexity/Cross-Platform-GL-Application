@@ -1,15 +1,27 @@
+#define GLEW_STATIC
 #include "GL/glew.h"
 #include "GLFW/glfw3.h"
 #include <iostream>
 
 int main() {
-    if(!glfwInit()) exit(EXIT_FAILURE);
+    if(!glfwInit()) {
+        exit(EXIT_FAILURE);
+    }
 
     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
     GLFWwindow* window = glfwCreateWindow(600, 300, "Test", NULL, NULL);
     glfwMakeContextCurrent(window);
-    if(glewInit() != GLEW_OK) exit(EXIT_FAILURE);
+    if(window) {
+        std::cerr << "Failed to create window" << std::endl;
+        glfwTerminate();
+        exit(EXIT_FAILURE);
+    }
+
+    if(GLenum err = glewInit(); err != GLEW_OK) {
+        std::cout << glewGetErrorString(err) << std::endl;
+        exit(EXIT_FAILURE);
+    }
     glfwSwapInterval(1); // Allow VSync
 
     while(!glfwWindowShouldClose(window)) {
