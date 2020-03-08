@@ -27,7 +27,7 @@ public:
                 "#version 430 \n"
                 "out vec4 color; \n"
                 "void main(void) \n"
-                "{ color = vec4(0.0, 1.0, 1.0, 1.0); }";
+                "{ color = vec4(0.0, 0.0, 1.0, 1.0); }";
 
         // Example for creating and linking a shader pipeline
         this->createProgram("main");
