@@ -22,6 +22,8 @@ void GLShift::GLRenderer::addShader(const std::string& programName, const char *
     GLuint vShader = glCreateShader(shader_type);
     glShaderSource(vShader, 1, &shaderSource, nullptr);
     glCompileShader(vShader);
+    bool verified = this->verify(vShader);
+    if(!verified) std::cout << "Shader compilation error!" << std::endl;
     glAttachShader(this->glPrograms[programName], vShader);
 }
 
@@ -32,6 +34,7 @@ void GLShift::GLRenderer::linkProgram(const std::string& name) {
     }
 
     glLinkProgram(this->glPrograms[name]);
+    bool verified = this->verify(this->glPrograms[name], true);
 }
 
 void GLShift::GLRenderer::useProgram(const std::string &name) {
@@ -41,4 +44,46 @@ void GLShift::GLRenderer::useProgram(const std::string &name) {
     }
 
     glUseProgram(this->glPrograms[name]);
+}
+
+bool GLShift::GLRenderer::verify(GLint element, bool isProgram) {
+    bool verificationSuccessful = true;
+
+    // Check for general OpenGL errors
+    int glError = glGetError();
+    if(glError != GL_NO_ERROR) std::cout << "OpenGL errors found: ";
+    while(glError != GL_NO_ERROR) {
+        verificationSuccessful = false;
+        std::cout << glError << " ";
+        glError = glGetError();
+    }
+    std::cout << std::endl;
+
+    // Get shader status of compilation
+    GLint status;
+    if(isProgram) glGetShaderiv(element, GL_LINK_STATUS, &status);
+    else glGetShaderiv(element, GL_COMPILE_STATUS, &status);
+
+    if(status != 1) {
+        verificationSuccessful = false;
+        // Determine information length
+        int infoLen, charWritten;
+        if(isProgram) glGetProgramiv(element, GL_INFO_LOG_LENGTH, &infoLen);
+        else glGetShaderiv(element, GL_INFO_LOG_LENGTH, &infoLen);
+        // Print log if present
+        if(infoLen <= 0) return false;
+        char* logData = new char[infoLen];
+        if(isProgram) {
+            glGetProgramInfoLog(element, infoLen, &charWritten, logData);
+            std::cout << "Program";
+        }
+        else {
+            glGetShaderInfoLog(element, infoLen, &charWritten, logData);
+            std::cout << "Shader";
+        }
+        std::cout << " Log: " << logData << "\n";
+        delete[] logData;
+    }
+
+    return verificationSuccessful;
 }

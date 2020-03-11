@@ -49,6 +49,14 @@ public:
      * @param name Name of the program to load
      */
     void useProgram(const std::string& name);
+private:
+    /**
+     * Checks for errors in OpenGL environment
+     * @param element If an element is specified then this function checks for errors in element.
+     * @param isProgram Set to true to validate a program, and false for a shader
+     * @return verification status
+     */
+    bool verify(GLint element = -1, bool isProgram = false);
 protected:
     std::unordered_map<std::string, GLuint> glPrograms;
     GLFWwindow * window;

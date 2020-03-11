@@ -14,6 +14,7 @@ public:
         // Rather use this function instead of glUseProgram
         // Since it checks for availability of the program
         this->useProgram("main");
+        glPointSize(30);
         glDrawArrays(GL_POINTS, 0, 1);
     }
 
@@ -27,7 +28,10 @@ public:
                 "#version 430 \n"
                 "out vec4 color; \n"
                 "void main(void) \n"
-                "{ color = vec4(0.0, 0.0, 1.0, 1.0); }";
+                "{\n"
+                "if(gl_FragCoord.x < 300) color = vec4(0.0, 0.0, 1.0, 1.0);\n"
+                "else color = vec4(0.0, 1.0, 0.0, 1.0);\n"
+                "}";
 
         // Example for creating and linking a shader pipeline
         this->createProgram("main");
