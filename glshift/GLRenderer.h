@@ -38,8 +38,9 @@ public:
      * @param programName Program name to add to
      * @param shaderSource Source code of the shader
      * @param shader_type Shader type
+     * @param isFile Set T for loading a file, or F for loading from code
      */
-    void addShader(const std::string& programName, const char* shaderSource, GLint shader_type = GL_VERTEX_SHADER);
+    void addShader(const std::string& programName, const char* shaderSource, GLint shader_type = GL_VERTEX_SHADER, bool isFile = true);
     /**
      * A safe function to call programs.
      * Newbies might use the command line `glUseProgram(this->glPrograms["name"])`.

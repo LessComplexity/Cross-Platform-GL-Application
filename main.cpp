@@ -1,6 +1,6 @@
 #include "glshift/GLShift.h"
 
-#define numVAOs 1
+#define numVAOs 3
 
 /**
  * Example for a renderer implementation
@@ -14,29 +14,14 @@ public:
         // Rather use this function instead of glUseProgram
         // Since it checks for availability of the program
         this->useProgram("main");
-        glPointSize(30);
-        glDrawArrays(GL_POINTS, 0, 1);
+        glDrawArrays(GL_TRIANGLES, 0, 3);
     }
 
     void init() override {
-        // Example for fixed shader
-        const char* vShaderSource =
-                "#version 430 \n"
-                "void main(void) \n"
-                "{ gl_Position = vec4(0.0, 0.0, 0.0, 1.0); }";
-        const char* fShaderSource =
-                "#version 430 \n"
-                "out vec4 color; \n"
-                "void main(void) \n"
-                "{\n"
-                "if(gl_FragCoord.x < 300) color = vec4(0.0, 0.0, 1.0, 1.0);\n"
-                "else color = vec4(0.0, 1.0, 0.0, 1.0);\n"
-                "}";
-
         // Example for creating and linking a shader pipeline
         this->createProgram("main");
-        this->addShader("main", vShaderSource, GL_VERTEX_SHADER);
-        this->addShader("main", fShaderSource, GL_FRAGMENT_SHADER);
+        this->addShader("main", "../shaders/simple_vertex.glsl", GL_VERTEX_SHADER);
+        this->addShader("main", "../shaders/simple_fragment.glsl", GL_FRAGMENT_SHADER);
         this->linkProgram("main");
 
         // Just a point
@@ -53,7 +38,7 @@ int main() {
      * Example for a GLManager implementation
      */
     GLShift::GLManager glManager = GLShift::GLManager(4, 3);
-    glManager.openWindow(600, 300, "Yeahh!");
+    glManager.openWindow(600, 400, "Yeahh!");
     glManager.setRenderer(new MyRenderer());
     glManager.run();
     return 0;

@@ -4,6 +4,8 @@
 
 #include "GLRenderer.h"
 #include <iostream>
+#include <sstream>
+#include <fstream>
 
 void GLShift::GLRenderer::setWindow(GLFWwindow * context) {
     this->window = context;
@@ -18,8 +20,20 @@ void GLShift::GLRenderer::createProgram(const std::string& name) {
     this->glPrograms[name] = glCreateProgram();
 }
 
-void GLShift::GLRenderer::addShader(const std::string& programName, const char *shaderSource, GLint shader_type) {
+void GLShift::GLRenderer::addShader(const std::string& programName, const char *shaderSource, GLint shader_type, bool isFile) {
     GLuint vShader = glCreateShader(shader_type);
+    std::string data = "";
+    // Get source from file
+    if(isFile) {
+        std::ifstream file(shaderSource, std::ios::in);
+        std::string line;
+        while(!file.eof()) {
+            std::getline(file, line);
+            data.append(line + "\n");
+        }
+        shaderSource = data.c_str();
+    }
+
     glShaderSource(vShader, 1, &shaderSource, nullptr);
     glCompileShader(vShader);
     bool verified = this->verify(vShader);
